@@ -1,13 +1,20 @@
 package tests;
 
 import org.openqa.selenium.By;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
 public class LoginTest extends BaseTest {
 
-    @Test
+    @Test(
+            priority = 1,
+            testName = "Проверка логина с позитивным именем пользователя и  паролем",
+            description = "Проверка логина с позитивным именем пользователя и  паролем",
+            invocationCount = 3,
+            groups = {"smoke", "regression"}
+    )
     public void checkLoginWithPositiveCred() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -21,25 +28,22 @@ public class LoginTest extends BaseTest {
         assertEquals(title, "Products");
     }
 
-    @Test
-    public void chekLoginWithEmptyUserName() {
-        loginPage.open();
-        loginPage.login("", "secret_sauce");
-        assertEquals(loginPage.getErrorMessage(), "Epic sadface: Username is required", "SO bad");
-
+    @DataProvider(name = "Параметризованный тест для негативного логина")
+    public Object[][] loginData() {
+        return new Object[][]{
+                {"", "secret_sauce", "Epic sadface: Username is required"},
+                {"standard_user", "", "Epic sadface: Password is required"},
+                {"test", "test", "Epic sadface: Username and password do not match any user in this service"}
+        };
     }
 
-    @Test
-    public void chekLoginWithEmptyPassword() {
+    @Test(dataProvider = "Параметризованный тест для негативного логина",
+            description = "Параметризованный тест для негативного логина",
+            groups = {"smoke"},
+            retryAnalyzer = Retry.class)
+    public void chekLoginWithNegativeCred1(String user, String password, String errorMessage) {
         loginPage.open();
-        loginPage.login("standard_user", "");
-        assertEquals(loginPage.getErrorMessage(), "Epic sadface: Password is required", "SO bad");
-    }
-
-    @Test
-    public void chekLoginWithNegativeCred() {
-        loginPage.open();
-        loginPage.login("test", "test");
-        assertEquals(loginPage.getErrorMessage(), "Epic sadface: Username and password do not match any user in this service", "SO bad");
+        loginPage.login(user, password);
+        assertEquals(loginPage.getErrorMessage(), errorMessage, "SO bad");
     }
 }

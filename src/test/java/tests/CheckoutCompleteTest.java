@@ -6,7 +6,10 @@ import static org.testng.Assert.assertEquals;
 
 public class CheckoutCompleteTest extends BaseTest {
 
-    @Test
+    @Test(testName = "Успешное завершение оформления товара",
+            description = "Переход на страницу продуктов после успешного оформления товаров и нажатия кнопки Финиш",
+            groups = {"regression"},
+            retryAnalyzer = Retry.class)
     public void goBackHome() {
         String product = "Sauce Labs Backpack";
         loginPage.open();
