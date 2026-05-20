@@ -5,7 +5,8 @@
        parallel="tests">
 
     <listeners>
-        <listener class-name="tests.RetryListener"/>
+        <listener class-name="tests.listeners.RetryListener"/>
+        <listener class-name="tests.listeners.TestListener"/>
     </listeners>
 
     <test name="Chrome">

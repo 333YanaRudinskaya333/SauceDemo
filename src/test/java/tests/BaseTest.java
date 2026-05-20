@@ -1,17 +1,19 @@
 package tests;
 
+import io.qameta.allure.testng.AllureTestNg;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.ITestContext;
 import org.testng.annotations.*;
 import pages.*;
+import tests.listeners.TestListener;
 
 import java.time.Duration;
 import java.util.HashMap;
 
-@Listeners(TestListener.class)
+@Listeners({AllureTestNg.class, TestListener.class})
 
 public class BaseTest {
     WebDriver driver;
@@ -26,7 +28,7 @@ public class BaseTest {
     @Parameters({"browser"})
 
     @BeforeMethod(alwaysRun = true, description = "Настройка браузера")
-    public void setUp(@Optional("chrome") String browser) {
+    public void setUp(@Optional("chrome") String browser, ITestContext iTestContext) {
         if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
             HashMap<String, Object> chromePrefs = new HashMap<>();
@@ -44,6 +46,7 @@ public class BaseTest {
             driver = new EdgeDriver();
         }
 
+        iTestContext.setAttribute("driver", driver);
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
         cartPage = new CartPage(driver);
