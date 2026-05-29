@@ -17,20 +17,32 @@ public class LoginPage extends BasePage {
     }
 
     @Step("Открытие страницы Login Page")
-    public void open() {
+    public LoginPage open() {
         driver.get(BASE_URL);
+        return this;
     }
 
+    @Override
     @Step("Открыта страница Login Page")
-    public void isOpened() {
+    public LoginPage isPageOpened() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
+        return this;
     }
 
     @Step("Вход в систему с логином '{user}' и паролем '{password}'")
-    public void login(String user, String password) {
+    public ProductsPage login(String user, String password) {
         driver.findElement(USERNAME_FIELD).sendKeys(user);
         driver.findElement(PASSWORD_FIELD).sendKeys(password);
         driver.findElement(LOGIN_BUTTON).click();
+        return new ProductsPage(driver);
+    }
+
+    @Step("Вход в систему с логином '{user}' и паролем '{password}'")
+    public LoginPage loginWithNegativeCred(String user, String password) {
+        driver.findElement(USERNAME_FIELD).sendKeys(user);
+        driver.findElement(PASSWORD_FIELD).sendKeys(password);
+        driver.findElement(LOGIN_BUTTON).click();
+        return this;
     }
 
     public String getErrorMessage() {

@@ -19,9 +19,9 @@ public class ProductsTest extends BaseTest {
     @Severity(SeverityLevel.BLOCKER)
     public void addProductToCart() {
         String product = "Sauce Labs Backpack";
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addToCart(product);
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addToCart(product);
         assertEquals(productsPage.getRemoveButton(product), "Remove", "Check Remove Button");
     }
 
@@ -36,10 +36,10 @@ public class ProductsTest extends BaseTest {
     @Severity(SeverityLevel.BLOCKER)
     public void removeProductFromCart() {
         String product = "Sauce Labs Backpack";
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addToCart(product);
-        productsPage.removeProduct(product);
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addToCart(product)
+                .removeProduct(product);
         assertEquals(productsPage.getAddToCartButton(product), "Add to cart", "Check Remove Button");
     }
 }

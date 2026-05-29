@@ -19,13 +19,13 @@ public class CheckoutOverviewTest extends BaseTest {
     @Severity(SeverityLevel.MINOR)
     public void finishOrder() {
         String product = "Sauce Labs Backpack";
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.addToCart(product);
-        productsPage.clickCart();
-        cartPage.clickCheckoutButton();
-        checkoutYourInformationPage.fillOutAllFieldsAndContinue("Yana", "Rudzinskaya", "247787");
-        checkoutOverviewPage.clickFinishButton();
+        loginPage.open()
+                .login("standard_user", "secret_sauce")
+                .addToCart(product)
+                .clickCart()
+                .clickCheckoutButton()
+                .fillOutAllFieldsAndContinue("Yana", "Rudzinskaya", "247787")
+                .clickFinishButton();
         assertEquals(checkoutCompletePage.getYourInformationTitle(), "Checkout: Complete!", "Checkout: Complete! title not found");
     }
 }

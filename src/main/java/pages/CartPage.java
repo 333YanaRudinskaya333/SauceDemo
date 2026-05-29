@@ -3,6 +3,7 @@ package pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CartPage extends BasePage {
 
@@ -19,8 +20,16 @@ public class CartPage extends BasePage {
     }
 
     @Step("Переход на страницу корзины")
-    public void open() {
+    public CartPage open() {
         driver.get(BASE_URL + "cart.html");
+        return this;
+    }
+
+    @Override
+    @Step("Дождались отображения тайтла на странице после её загрузки")
+    public CartPage isPageOpened() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(CART_TITLE));
+        return this;
     }
 
     @Step("Получение заголовка на странице корзины")
@@ -34,23 +43,27 @@ public class CartPage extends BasePage {
     }
 
     @Step("Нажатие на товар '{product}' в корзине")
-    public void clickOnTheProductInCart(String product) {
+    public CartPage clickOnTheProductInCart(String product) {
         driver.findElement(By.xpath(String.format(PRODUCT_IN_CART_PATTERN, product))).click();
+        return this;
     }
 
     @Step("Нажатие кнопки продолжить покупки в корзине")
-    public void clickContinueShopping() {
+    public ProductsPage clickContinueShopping() {
         driver.findElement(CONTINUE_SHOPPING_BUTTON).click();
+        return new ProductsPage(driver);
     }
 
     @Step("Нажатие кнопки оформления заказа")
-    public void clickCheckoutButton() {
+    public CheckoutYourInformationPage clickCheckoutButton() {
         driver.findElement(CHECKOUT_BUTTON).click();
+        return new CheckoutYourInformationPage(driver);
     }
 
     @Step("Удаление продукта '{product}' из корзины на странице корзины")
-    public void removeFromCart(String product) {
+    public CartPage removeFromCart(String product) {
         driver.findElement(By.xpath(String.format(REMOVE_FROM_CART_PATTERN, product))).click();
+        return this;
     }
 
     @Step("Проверка удаления продукта '{product}' из корзины")
