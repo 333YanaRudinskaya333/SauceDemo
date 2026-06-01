@@ -1,8 +1,10 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import utils.Retry;
 
 import static org.testng.Assert.assertEquals;
 
@@ -15,6 +17,16 @@ public class LoginTest extends BaseTest {
             invocationCount = 3,
             groups = {"smoke", "regression"}
     )
+    @Owner("Rudinskaya Y.V.")
+    @Epic("Sause Demo 1")
+    @Feature("Log in")
+    @Story("Log in with positive credentials")
+    @Description("Проверка логина с позитивным именем пользователя и  паролем")
+    @Severity(SeverityLevel.CRITICAL)
+    @Flaky
+    @Link(name = "Аналитика", url = "https://www.saucedemo.com/") //ссылка на аналитику
+    @TmsLink("SD-T01")
+    @Issue("Bug-01")
     public void checkLoginWithPositiveCred() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
@@ -41,6 +53,11 @@ public class LoginTest extends BaseTest {
             description = "Параметризованный тест для негативного логина",
             groups = {"smoke"},
             retryAnalyzer = Retry.class)
+    @Owner("Rudinskaya Y.V.")
+    @Epic("Sause Demo 1")
+    @Feature("Log in")
+    @Story("Log in with negative credentials")
+    @Severity(SeverityLevel.CRITICAL)
     public void chekLoginWithNegativeCred1(String user, String password, String errorMessage) {
         loginPage.open();
         loginPage.login(user, password);

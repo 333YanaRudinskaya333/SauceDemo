@@ -1,6 +1,8 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
+import utils.Retry;
 
 import static org.testng.Assert.assertEquals;
 
@@ -10,6 +12,11 @@ public class ProductsTest extends BaseTest {
             description = "Добавление продукта в корзину",
             groups = {"regression", "smoke"},
             retryAnalyzer = Retry.class)
+    @Owner("Rudinskaya Y.V.")
+    @Epic("Sause Demo 1")
+    @Feature("Add to cart on product page")
+    @Story("Add product to product cart")
+    @Severity(SeverityLevel.BLOCKER)
     public void addProductToCart() {
         String product = "Sauce Labs Backpack";
         loginPage.open();
@@ -22,6 +29,11 @@ public class ProductsTest extends BaseTest {
             description = "даление продукта из корзины на странице продуктов",
             groups = {"regression", "smoke"},
             retryAnalyzer = Retry.class)
+    @Owner("Rudinskaya Y.V.")
+    @Epic("Sause Demo 1")
+    @Feature("Remove from cart on product page")
+    @Story("Remove from product cart")
+    @Severity(SeverityLevel.BLOCKER)
     public void removeProductFromCart() {
         String product = "Sauce Labs Backpack";
         loginPage.open();

@@ -1,6 +1,8 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
+import utils.Retry;
 
 import static org.testng.Assert.assertEquals;
 
@@ -10,6 +12,11 @@ public class CheckoutCompleteTest extends BaseTest {
             description = "Переход на страницу продуктов после успешного оформления товаров и нажатия кнопки Финиш",
             groups = {"regression"},
             retryAnalyzer = Retry.class)
+    @Owner("Rudinskaya Y.V.")
+    @Epic("Sause Demo 1")
+    @Feature("Checkout Complete ")
+    @Story("click Back Home on Checkout Checkout Complete and go to Products page")
+    @Severity(SeverityLevel.MINOR)
     public void goBackHome() {
         String product = "Sauce Labs Backpack";
         loginPage.open();
