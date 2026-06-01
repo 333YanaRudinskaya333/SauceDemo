@@ -28,10 +28,9 @@ public class LoginTest extends BaseTest {
     @TmsLink("SD-T01")
     @Issue("Bug-01")
     public void checkLoginWithPositiveCred() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.open()
+                .login("standard_user", "secret_sauce");
         assertEquals(productsPage.getTitle(), "Products", "SO bad");
-
         driver.get("https://www.saucedemo.com/");
         driver.findElement(By.id("user-name")).sendKeys("standard_user");
         driver.findElement(By.name("password")).sendKeys("secret_sauce");
@@ -59,8 +58,8 @@ public class LoginTest extends BaseTest {
     @Story("Log in with negative credentials")
     @Severity(SeverityLevel.CRITICAL)
     public void chekLoginWithNegativeCred1(String user, String password, String errorMessage) {
-        loginPage.open();
-        loginPage.login(user, password);
+        loginPage.open()
+                .loginWithNegativeCred(user, password);
         assertEquals(loginPage.getErrorMessage(), errorMessage, "SO bad");
     }
 }

@@ -5,7 +5,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class BasePage {
+public abstract class BasePage {
 
     WebDriver driver;
     WebDriverWait wait;
@@ -16,4 +16,7 @@ public class BasePage {
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
+
+    public abstract BasePage isPageOpened();
+
 }

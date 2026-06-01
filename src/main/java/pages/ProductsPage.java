@@ -3,6 +3,7 @@ package pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ProductsPage extends BasePage {
 
@@ -16,9 +17,17 @@ public class ProductsPage extends BasePage {
         super(driver);
     }
 
-    @Step("Открытие страницы товаров'")
-    public void open() {
+    @Step("Открытие страницы товаров")
+    public ProductsPage open() {
         driver.get(BASE_URL + "inventory.html");
+        return this;
+    }
+
+    @Override
+    @Step("Ожидание появления тайтла на странице товаров'")
+    public  ProductsPage isPageOpened(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE));
+        return this;
     }
 
     @Step("Поиск тайтла Product на странице товаров")
@@ -37,17 +46,20 @@ public class ProductsPage extends BasePage {
     }
 
     @Step("Добавление продукта '{product}' в корзину")
-    public void addToCart(String product) {
+    public ProductsPage addToCart(String product) {
         driver.findElement(By.xpath(String.format(ADD_TO_CART_PATTERN, product))).click();
+        return this;
     }
 
     @Step("Удаление продукта '{product}' из корзины")
-    public void removeProduct(String product) {
+    public ProductsPage removeProduct(String product) {
         driver.findElement(By.xpath(String.format(REMOVE_PATTERN, product))).click();
+        return this;
     }
 
     @Step("Нажатие кнопки перехода в корзину")
-    public void clickCart() {
+    public CartPage clickCart() {
         driver.findElement(CART).click();
+        return new CartPage(driver);
     }
 }
