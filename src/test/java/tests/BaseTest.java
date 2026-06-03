@@ -11,6 +11,7 @@ import org.testng.ITestContext;
 import org.testng.annotations.*;
 import pages.*;
 import tests.listeners.TestListener;
+import utils.PropertyReader;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -27,8 +28,8 @@ public class BaseTest {
     CheckoutOverviewPage checkoutOverviewPage;
     CheckoutCompletePage checkoutCompletePage;
 
-    String user=System.getProperty("user");
-    String password=System.getProperty("password");
+    String user = System.getProperty("user", PropertyReader.getProperty("user"));
+    String password = System.getProperty("password", PropertyReader.getProperty("password"));
 
     @Parameters({"browser"})
 
