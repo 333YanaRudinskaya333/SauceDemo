@@ -29,7 +29,7 @@ public class LoginTest extends BaseTest {
     @Issue("Bug-01")
     public void checkLoginWithPositiveCred() {
         loginPage.open()
-                .login("standard_user", "secret_sauce");
+                .login(user, password);
         assertEquals(productsPage.getTitle(), "Products", "SO bad");
         driver.get("https://www.saucedemo.com/");
         driver.findElement(By.id("user-name")).sendKeys("standard_user");
