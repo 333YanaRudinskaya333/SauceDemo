@@ -26,7 +26,7 @@ public class CartTest extends BaseTest {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
         productsPage.clickCart();
-        assertEquals(cartPage.getCartTitle(), "Your Cart1", "Not found title \"Your Cart\" on page Cart");
+        assertEquals(cartPage.getCartTitle(), "Your Cart", "Not found title: \"Your Cart\" on page Cart");
     }
 
 
