@@ -42,7 +42,7 @@ public class LoginPage extends BasePage {
         return new ProductsPage(driver);
     }
 
-    @Step("Вход в систему с логином '{user}' и паролем '{password}'")
+   // @Step("Вход в систему с логином '{user}' и паролем '{password}'") лучше не указывать логин и пароль, т.к. будут светиться в отчете
     public LoginPage loginWithNegativeCred(String user, String password) {
         log.info("fill Out negative cred user name '{}' and password '{}'  And click LOGIN BUTTON  on the login page", user, password);
         driver.findElement(USERNAME_FIELD).sendKeys(user);
